@@ -1,0 +1,20 @@
+{
+  "expo": {
+    "name": "ARISE",
+    "slug": "project-arise",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "scheme": "arise",
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.projectarise.training"
+    },
+    "android": {
+      "package": "com.projectarise.training"
+    }
+  }
+}

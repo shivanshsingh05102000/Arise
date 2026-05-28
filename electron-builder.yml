@@ -1,0 +1,16 @@
+appId: com.arise.training
+productName: ARISE
+artifactName: ARISE Setup.${ext}
+directories:
+  output: dist-electron
+files:
+  - dist/**/*
+  - electron/**/*
+  - package.json
+win:
+  target: nsis
+  icon: assets/icon.ico
+  signAndEditExecutable: false
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true

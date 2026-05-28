@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">ARISE</string>
+    <string name="title_activity_main">ARISE</string>
+    <string name="package_name">com.arise.app</string>
+    <string name="custom_url_scheme">com.arise.app</string>
+</resources>

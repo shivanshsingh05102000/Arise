@@ -1,0 +1,11 @@
+node_modules/
+.expo/
+dist/
+build/
+dist-electron/
+
+npm-debug.log*
+expo-start.log
+expo-start.err
+
+.env
