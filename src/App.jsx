@@ -32,11 +32,10 @@ export default function App() {
   const [bootDone, setBootDone] = useState(false)
 
   useEffect(() => {
-    if (engine.overlay) {
-      const timer = setTimeout(engine.clearOverlay, 3000)
-      return () => clearTimeout(timer)
-    }
-  }, [engine])
+    if (!engine.overlay) return undefined
+    const timer = setTimeout(engine.clearOverlay, 3000)
+    return () => clearTimeout(timer)
+  }, [engine.overlay, engine.clearOverlay])
 
   if (!engine.state || !engine.derived) return <div className="boot-screen"><div className="mono">[ LOADING SYSTEM CORE ]</div></div>
 
