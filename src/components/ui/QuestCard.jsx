@@ -5,7 +5,12 @@ import { calculateQuestXp } from '../../engine/progression'
 export default function QuestCard({ categoryKey, meta, category, streak, onSubmit }) {
   const [actual, setActual] = useState('')
   const completed = category.completedToday
-  const preview = useMemo(() => calculateQuestXp(category.difficulty, category.target, Number(actual) || category.target, streak), [actual, category, streak])
+  const preview = useMemo(() => {
+    const value = Number(actual)
+    if (!Number.isFinite(value) || value <= 0) return calculateQuestXp(category.difficulty, category.target, category.target, streak)
+    if (value < category.target) return 0
+    return calculateQuestXp(category.difficulty, category.target, value, streak)
+  }, [actual, category, streak])
   const failed = completed && category.actualToday < category.target
   const target = category.unit === 'km'
     ? `${category.target} km`

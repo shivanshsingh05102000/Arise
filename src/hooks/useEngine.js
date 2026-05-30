@@ -53,7 +53,7 @@ export function useEngine() {
   const [weeklyReport, setWeeklyReport] = useState(null)
 
   const addMessage = useCallback((text, type = 'success') => {
-    const id = crypto.randomUUID()
+    const id = crypto.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}`
     setMessages((items) => [...items, { id, text, type }])
     setTimeout(() => setMessages((items) => items.filter((item) => item.id !== id)), 3200)
   }, [])
@@ -128,9 +128,11 @@ export function useEngine() {
     await persist(next)
   }, [addMessage, persist, state])
 
-  const retakeAssessment = useCallback(() => {
-    setState((current) => ({ ...current, meta: { ...current.meta, initialized: false, retaking: true } }))
-  }, [])
+  const retakeAssessment = useCallback(async () => {
+    if (!state) return
+    const next = { ...state, meta: { ...state.meta, initialized: false, retaking: true } }
+    await persist(next)
+  }, [persist, state])
 
   const fullReset = useCallback(async () => {
     const next = await resetStoredState()
@@ -165,6 +167,8 @@ export function useEngine() {
     }
   }, [state])
 
+  const clearOverlay = useCallback(() => setOverlay(null), [])
+
   return {
     state,
     derived,
@@ -172,7 +176,7 @@ export function useEngine() {
     overlay,
     weeklyReport,
     addMessage,
-    clearOverlay: () => setOverlay(null),
+    clearOverlay,
     submitAssessment,
     submitQuest,
     retakeAssessment,

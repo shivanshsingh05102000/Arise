@@ -24,13 +24,9 @@
     "recharts": "latest"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.3.0",
-    "autoprefixer": "latest",
     "concurrently": "latest",
     "electron": "latest",
     "electron-builder": "latest",
-    "postcss": "latest",
-    "tailwindcss": "latest",
     "vite": "latest"
   }
 }

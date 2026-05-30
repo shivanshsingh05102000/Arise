@@ -12,6 +12,19 @@ async function loadStore() {
   return store
 }
 
+async function loadDevUrlWithRetry(retries = 50) {
+  const devUrl = 'http://localhost:5173'
+  for (let attempt = 1; attempt <= retries; attempt += 1) {
+    try {
+      await mainWindow.loadURL(devUrl)
+      return
+    } catch (error) {
+      if (attempt === retries) throw error
+      await new Promise((resolve) => setTimeout(resolve, 200))
+    }
+  }
+}
+
 async function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1200,
@@ -31,8 +44,8 @@ async function createWindow() {
   mainWindow.setBackgroundColor('#00000000')
 
   if (!app.isPackaged) {
-    await mainWindow.loadURL('http://localhost:5173')
-    mainWindow.webContents.openDevTools({ mode: 'detach' })
+    await loadDevUrlWithRetry()
+    if (process.env.ARISE_OPEN_DEVTOOLS === '1') mainWindow.webContents.openDevTools({ mode: 'detach' })
   } else {
     await mainWindow.loadFile(path.join(__dirname, '..', 'dist', 'index.html'))
   }
